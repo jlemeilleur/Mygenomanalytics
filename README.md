@@ -5,11 +5,11 @@ An open source web application that provides complementary analysis using 23andm
 Mygenomanalytics proposes an interactive interface with sample views that include an attempt to link which trait came from which ancestor and a deep dive into your rare mutations. Mygenomanalytics also includes traits at the forefront of research that have not been the main focus of most bioinformatics companies such as: longevity, mathematical ability, facial morphology and many others.
 
 ## Sample views
-![View0](https://github.com/jlemeilleur/Mygenomanalytics_test/blob/main/my_snp_api/static/images/ReadmeExample0.jpg)
-![View1](https://github.com/jlemeilleur/Mygenomanalytics_test/blob/main/my_snp_api/static/images/ReadmeExample1.jpg)
-![View2](https://github.com/jlemeilleur/Mygenomanalytics_test/blob/main/my_snp_api/static/images/ReadmeExample2.jpg)
-![View3](https://github.com/jlemeilleur/Mygenomanalytics_test/blob/main/my_snp_api/static/images/ReadmeExample3.jpg)
-![View4](https://github.com/jlemeilleur/Mygenomanalytics_test/blob/main/my_snp_api/static/images/ReadmeExample4.jpg)
+![View0](https://github.com/jlemeilleur/Mygenomanalytics/blob/main/my_snp_api/static/images/ReadmeExample0.jpg)
+![View1](https://github.com/jlemeilleur/Mygenomanalytics/blob/main/my_snp_api/static/images/ReadmeExample1.jpg)
+![View2](https://github.com/jlemeilleur/Mygenomanalytics/blob/main/my_snp_api/static/images/ReadmeExample2.jpg)
+![View3](https://github.com/jlemeilleur/Mygenomanalytics/blob/main/my_snp_api/static/images/ReadmeExample3.jpg)
+![View4](https://github.com/jlemeilleur/Mygenomanalytics/blob/main/my_snp_api/static/images/ReadmeExample4.jpg)
 
 ## Features
 * Big data parsing module (streaming)
