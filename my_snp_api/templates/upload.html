@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+main page
+{% endblock title %}
+{% load static %}
+{% block refcss_block %} <link rel="stylesheet" href="{% static 'upload.css'%}"> {% endblock %}
+{% block content %}
+<div id="textwrapper">
+    <h1>Welcome to Mygenomanalytics.com</h1>
+    <p style="margin:0;"> Mygenomanalytics.com is an online service offering complementary analysis of personal genome based on the user's raw genetic data provided by 23andme.</p>
+    <br clear="all">
+    <p style="margin:0;">Don't have your <a href='/faq/#question7' target="_blank" rel="noopener noreferrer">23andme files</a> yet ?</p>
+    <p style="margin:0;">No worries: you can already
+        <a href='/filter' target="_blank" rel="noopener noreferrer">have a look at how your Results would look like</a>
+        without uploading any files as the Results section has been prepopulated with mock data by default!</p>
+    <p style="margin:0;">Once you upload your files, everything will be updated based on your personal data.</p>
+    <br clear="all">
+</div>
+<form action="" id="form" method="POST" class="ui form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container" id=GenomeFieldset style="display: inline;float: left;">
+        <fieldset class="inline" style="width:350px">
+        <legend>Genome file</legend>
+            {{form_txt}}
+            <br clear="all">
+            <br clear="all">
+            <p style="margin:0;" >Example:</p>
+            <img id="GenomeFile" src="{% static '/images/SampleGenomeFile.jpg' %}" width="200" height="30">
+        </fieldset>
+    </div>
+    <div class="container" id=AncestryFieldset style="display: inline">
+        <fieldset class="inline" style="width:350px">
+        <legend>Ancestry file</legend>
+            {{form_csv}}
+            <br clear="all">
+            <br clear="all">
+            <p style="margin:0;" >Example:</p>
+            <!--<img id="AncestryFile" src="/static/media/images/SampleAncestryFile.jpg" width="200" height="30">-->
+            <img id="AncestryFile" src="{% static '/images/SampleAncestryFile.jpg' %}" width="200" height="30">
+        </fieldset>
+    </div>
+    <br clear="all">
+    <button type="submit" class="ui button primary" onclick="displayWait()">Upload</button>
+</form>
+
+<p class="lead" id="waitMessage"><strong style="color: red; font-size: 15px; display: none;"></strong></p>
+<br clear="all">
+{%for msg in messages%}
+    {{ msg }}
+{% endfor %}
+<script src="{% static '/upload.js' %}"></script>
+
+{% endblock content %}

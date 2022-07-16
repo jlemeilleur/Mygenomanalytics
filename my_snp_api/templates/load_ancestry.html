@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Ancestry
+{% endblock title %}
+
+{% block refcss_block %}
+<link rel="stylesheet" href="{% static 'table_ancestry.css'%}">
+<link rel="stylesheet" href="{% static 'faq.css'%}">
+<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1>Traits breakdown for a given ancestry</h1>
+<p>Your 23andme results say that you are 3% of Indian descent, but you don't look Indian at all. Wonder what traits you got from your Indian side ?
+Some of these traits might be less "visible", for example your white blood cells count, heart rate or personnality. This view answers the question of which traits can be traced back to a given ancestor.</p>
+
+<div class="container">
+    <div class="container">
+        <div class="accordion-item" id="question_ancestry">
+            <a class="accordion-link" href="#question_ancestry" id="accordionlink_ancestry">
+                How to interpret this table ? Click here for an example.
+                <i class="icon ion-md-add" id="icon_add_ancestry"></i>
+                <i class="icon ion-md-remove" id="icon_remove_ancestry"></i>
+            </a>
+            <div class="answer" id="answer_ancestry">
+                <img id="AncestryFile" src="{% static '/images/Ancestry_example.jpg' %}" width="520" height="110"><p>
+                In this example, the main feature that the individual inherited from his Italian side is the mean platelet volume. As mentionned, not all traits are easily visible.
+                More specifically, out of the 102 variants (SNPs) associated to mean platelet volume, 14.71% could be traced to an Italian ancestor.
+                </p>
+            </div>
+        </div>
+   </div>
+</div>
+<br clear="all">
+<form method="POST" id="pvalue_form" pvalue_url = "{% url 'loadAncestry-view' %}">
+    {% csrf_token %}
+    <div>{{FORM2.as_p}}</div>
+    <input type="hidden" id="requestType" name="requestType" value={{request_method}}>
+    <p>This is the level of confidence showing how strong an SNP was associated with that trait in the research study.</p>
+</form>
+<br clear="all">
+<form method="POST" id="ancestry_form" ancestry_url = "{% url 'loadAncestry-view' %}">
+    {% csrf_token %}
+    <div>{{FORM.as_p}}</div>
+    <input type="hidden" id="requestType" name="requestType" value={{request_method}}>
+    <p>This field is required. It will filter the table based on your selected ancestry.</p>
+</form>
+<br clear="all">
+<table class="table-striped">
+<caption><u>Results table: list of traits inherited from your selected ancestry</u></caption>
+<col>
+	<colgroup span="1"></colgroup>
+	<colgroup span="1"></colgroup>
+	<colgroup span="1"></colgroup>
+<tr>
+	<td style="font-weight:bold">Trait</td>
+	<td style="font-weight:bold" onclick='sortTable(1,"ancestry-table")'>Number of variants analyzed</td>
+	<td style="font-weight:bold" onclick='sortTable(2,"ancestry-table")'>Percentage inherited from your selected ancestry</td>
+</tr>
+	<tbody id="ancestry-table">
+	</tbody>
+</table>
+
+<br clear="all">
+
+<script>
+window.onload = function () {
+     /*if (localStorage.getItem("hasCodeRunBefore") === null) {*/
+
+    const url = "{% url 'loadAncestry-view' %}";
+    $.ajax({
+        url: url,
+        data : {},
+        success: function (response) {
+            myArray = response.data
+            buildTable(myArray)
+        },
+        error: function(error){
+           console.log(error)
+        },
+        })
+        /*localStorage.setItem("hasCodeRunBefore", true);
+    }*/
+}
+</script>
+
+<script src="{% static '/sortTable.js' %}"></script>
+<script src="{% static '/ancestry.js' %}"></script>
+{% endblock content %}

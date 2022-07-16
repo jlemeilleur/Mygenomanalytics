@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <link rel="stylesheet" href="{% static 'navbar.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% block refcss_block %} <link rel="stylesheet" href="{% static 'table.css'%}"> {% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+    <!-- <script src="static/navbar.js"></script> -->
+    <title>myGenome - {% block title %} Home {% endblock title %}</title>
+
+  <style>
+
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    text-align: center;
+    outline: none;
+    color: #f2f2f2;
+    padding: 15px 16px;
+    background-color: inherit;
+    margin: 0;
+  }
+
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #ddd;
+      color: black;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  </style>
+
+  </head>
+  <body>
+
+    <div class="topnav">
+      <div> <a class="{% if nbar == 'upload' %}active{% else %}btn{% endif %}" href="../">Home</a></div>
+      <div class="dropdown">
+        <div class="{% if nbar == 'filter' %}active{% else %}
+                      {% if nbar == 'frequency' %}active{% else %}
+                        {% if nbar == 'ancestry' %}active{% else %}
+                          {% if nbar == 'rare' %}active{% else %}
+                          dropdownbtn{% endif %}
+                        dropdownbtn{% endif %}
+                      dropdownbtn{% endif %}
+                    dropdownbtn{% endif %}">
+          <button class="dropbtn" id="dropbutton">View Results
+            <i class="fa fa-caret-down"></i>
+          </button>
+        </div>
+        <div class="dropdown-content">
+          <a class="{% if nbar == 'filter' %}active{% else %}btn{% endif %}" href="../filter/">Trait</a>
+          <a class="{% if nbar == 'frequency' %}active{% else %}btn{% endif %}" href="../frequency/">Frequency</a>
+          <a class="{% if nbar == 'ancestry' %}active{% else %}btn{% endif %}" href="../ancestry/" >Ancestry</a>
+          <a class="{% if nbar == 'rare' %}active{% else %}btn{% endif %}" href="../rare/" >Rare mutations</a>
+        </div>
+      </div>
+      <div><a class="btn" onclick="DownloadFile()" href="../">Download</a></div>
+      <div><a class="{% if nbar == 'FAQ' %}active{% else %}btn{% endif %}" href="../faq/" >FAQ</a></div>
+    </div>
+
+
+  <script>
+  var btns = document.getElementsByClassName("btn");
+
+  // Loop through the buttons and add the active class to the selected button
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+  </script>
+
+    <div class="ui container">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+  </body>
+
+</html>
+
+<!--
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'sortTable.js' %}"></script>
+{% endblock %}
+-->
+

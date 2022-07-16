@@ -1,0 +1,35 @@
+table, td, th {
+  border: 1px solid black;
+}
+caption {
+  font-size: 1em;
+}
+
+table {
+  width: 60%;
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  table-layout: fixed;
+  width: 180px;
+}
+
+td:nth-child(2), th:nth-child(2) {
+ border-left: solid 2px black;
+}
+
+td:nth-child(4), th:nth-child(4) {
+ border-left: solid 2px black;
+}
+
+tr:nth-child(1) {
+ border-top: solid 2px black;
+}
+
+td:nth-child(2), td:nth-child(3), td:nth-child(4){
+    table-layout:fixed;
+    width: 18%;
+    text-align:center;
+}

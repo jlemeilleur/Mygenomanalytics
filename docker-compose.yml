@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  my_snp_api:
+    build:
+      context: .
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./my_snp_api:/my_snp_api
+      - ./data/web:/vol/web
+    environment:
+      - DEBUG=${DEBUG}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SECRET_KEY=${SECRET_KEY}
+      - SESSION_EXPIRE_AT_BROWSER_CLOSE=${SESSION_EXPIRE_AT_BROWSER_CLOSE}
+      - DATA_UPLOAD_MAX_NUMBER_FIELDS=${DATA_UPLOAD_MAX_NUMBER_FIELDS}
+      - FILE_UPLOAD_MAX_MEMORY_SIZE=${FILE_UPLOAD_MAX_MEMORY_SIZE}
+      - DATA_UPLOAD_MAX_MEMORY_SIZE=${DATA_UPLOAD_MAX_MEMORY_SIZE}
+      - CLEANUP_FREQUENCY_HOURS=${CLEANUP_FREQUENCY_HOURS}
+      - SETUP_DATABASE_FLAG=${SETUP_DATABASE_FLAG}
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${DB_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DB_ADMIN_PASS}
+    ports:
+      - "5050:80"
+
+volumes:
+  postgres-data:
+
+
+
+
+
+
+
+
+
+
+
+

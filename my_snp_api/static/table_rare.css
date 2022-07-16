@@ -1,0 +1,55 @@
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(1) {
+ border-top: solid 2px black;
+}
+
+
+td:nth-child(1){
+    table-layout:fixed;
+    width: 10%;
+}
+
+td:nth-child(2){
+    table-layout:fixed;
+    text-align:center;
+    width: 10%;
+}
+
+td:nth-child(3){
+    table-layout:fixed;
+    text-align:center;
+    width: 10%;
+}
+
+td:nth-child(4){
+    table-layout:fixed;
+    text-align:center;
+    width: 15%;
+}
+
+td:nth-child(5){
+    table-layout:fixed;
+    text-align:center;
+    width: 12%;
+}
+
+td:nth-child(6){
+    table-layout:fixed;
+    text-align:center;
+    width: 20%;
+}
+
+td:nth-child(7){
+    table-layout:fixed;
+    text-align:center;
+    width: 9%;
+}

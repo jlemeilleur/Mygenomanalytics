@@ -1,0 +1,74 @@
+version: '3.9'
+
+services:
+  my_snp_api:
+    build:
+      context: .
+    restart: always
+    volumes:
+      - static-data:/vol/web
+    environment:
+      - DEBUG=${DEBUG}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SESSION_EXPIRE_AT_BROWSER_CLOSE=${SESSION_EXPIRE_AT_BROWSER_CLOSE}
+      - DATA_UPLOAD_MAX_NUMBER_FIELDS=${DATA_UPLOAD_MAX_NUMBER_FIELDS}
+      - FILE_UPLOAD_MAX_MEMORY_SIZE=${FILE_UPLOAD_MAX_MEMORY_SIZE}
+      - DATA_UPLOAD_MAX_MEMORY_SIZE=${DATA_UPLOAD_MAX_MEMORY_SIZE}
+      - CLEANUP_FREQUENCY_HOURS=${CLEANUP_FREQUENCY_HOURS}
+      - SETUP_DATABASE_FLAG=${SETUP_DATABASE_FLAG}
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+  #db:
+    #image: nouchka/sqlite3:latest
+    #restart: always
+    #volumes:
+    #  - sqlite-data:/var/lib/sqlite/data
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${DB_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DB_ADMIN_PASS}
+
+  proxy:
+    build:
+      context: ./proxy
+    restart: always
+    depends_on:
+      - my_snp_api
+    ports:
+      - 80:8000
+    volumes:
+      - static-data:/vol/static
+
+volumes:
+  postgres-data:
+  static-data:
+
+
+
+
+
+
+
+
+
+
+
+
+

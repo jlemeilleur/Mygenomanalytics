@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Rare mutations
+{% endblock title %}
+
+{% block refcss_block %}
+<link rel="stylesheet" href="{% static 'table_rare.css'%}">
+{% endblock %}
+
+{% block content %}
+<div id="textwrapper">
+	<h1>List of your top 50 rare mutations</h1>
+	<p style="margin:0;">This list does not diagnose any health condition. The "reference population" considered here comprises individuals from around the world, meaning that a frequency of '0%' indicates that your mutations was not found in any other individual from the database. Rare mutations can be beneficial, harmful, or neutral.</p>
+	<br clear="all">
+</div>
+<table class="table-striped">
+<tr>
+	<td style="font-weight:bold" >rsID (SNP ID)</td>
+	<td style="font-weight:bold" >Reference alleles (common)</td>
+	<td style="font-weight:bold" >Your alleles (uncommon)</td>
+	<td style="font-weight:bold" >Frequency of your alleles in the reference population</td>
+	<td style="font-weight:bold" >Size of the reference population</td>
+	<td style="font-weight:bold" >Associated trait</td>
+	<td style="font-weight:bold" >Pvalue of the associated trait</td>
+</tr>
+	<tbody id="rare-table">
+	</tbody>
+</table>
+
+<br clear="all">
+
+<script>
+window.onload = function () {
+     /*if (localStorage.getItem("hasCodeRunBefore") === null) {*/
+
+    const url = "{% url 'loadRare-view' %}";
+    $.ajax({
+        url: url,
+        data : {},
+        success: function (response) {
+            myArray = response.data
+            buildTable(myArray)
+        },
+        error: function(error){
+           console.log(error)
+        },
+        })
+        /*localStorage.setItem("hasCodeRunBefore", true);
+    }*/
+}
+</script>
+
+<script>
+function buildTable(data){
+	var table = document.getElementById('rare-table')
+    table.innerHTML = ''
+	for (var i=0; i<data.length; i++){
+		var row = `<tr>
+						<td>${data[i].rsid}</td>
+						<td>${data[i].Reference}</td>
+						<td>${data[i].SNP}</td>
+						<td>${data[i].Total_dist}</td>
+						<td>${data[i].Count}</td>
+						<td>${data[i].trait}</td>
+						<td>${data[i].pvalue}</td>
+				  </tr>`
+		table.innerHTML += row
+	}
+}
+</script>
+
+{% endblock content %}
