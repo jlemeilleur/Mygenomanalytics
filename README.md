@@ -26,10 +26,13 @@ Mygenomanalytics proposes an interactive interface with sample views that includ
 
 ## Installation
 
-Step 0:
+Step 0 - clone repo:<br />
 Please make sure to have Git and Docker installed.
+```
+git clone git@github.com:jlemeilleur/Mygenomanalytics.git
+```
 
-Step 1:
+Step 1 - change directory:<br />
 Go into the directory containing the project.
 ```
 cd Mygenomanalytics
