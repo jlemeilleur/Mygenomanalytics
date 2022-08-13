@@ -35,7 +35,7 @@ Go into the directory containing the project.
 cd Mygenomanalytics
 ```
 
-Step 2 - configuration:
+Step 2 - configuration:<br />
 Create the .env file.
 ```
 cp .env.sample .env
